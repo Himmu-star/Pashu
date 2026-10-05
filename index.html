@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday to My Sister, My Best Friend & Support System</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        cursive: ['"Dancing Script"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        rose: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            900: '#881337',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'sparkle': 'sparkle 1.5s infinite ease-in-out',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.8, filter: 'drop-shadow(0 0 15px rgba(244,63,94,0.6))' },
+                            '50%': { opacity: 1, filter: 'drop-shadow(0 0 25px rgba(244,63,94,0.9))' },
+                        },
+                        sparkle: {
+                            '0%, 100%': { transform: 'scale(0.8)', opacity: 0.3 },
+                            '50%': { transform: 'scale(1.2)', opacity: 1 },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff1f2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fda4af;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e;
+        }
+
+        /* Candle flame styling */
+        .flame {
+            width: 14px;
+            height: 24px;
+            background: linear-gradient(to top, #ff4500, #ffaa00, #ffffaa);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 0 8px #ffaa00);
+            animation: flicker 0.15s infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        .flame.out {
+            display: none;
+        }
+
+        .smoke {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            width: 8px;
+            height: 20px;
+            background: rgba(200, 200, 200, 0.6);
+            border-radius: 50%;
+            animation: riseSmoke 1.5s ease-out forwards;
+            display: none;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 1; }
+        }
+
+        @keyframes riseSmoke {
+            0% { transform: translate(-50%, 0) scale(0.5); opacity: 0.8; }
+            100% { transform: translate(-50%, -40px) scale(2.5); opacity: 0; }
+        }
+
+        /* Glassmorphism card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(225, 29, 72, 0.08);
+        }
+
+        .glass-card-dark {
+            background: rgba(24, 15, 26, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Memory Jar Note animation */
+        .note-pop {
+            animation: notePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notePop {
+            0% { transform: scale(0.3) translateY(50px) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+        }
+
+        /* Polaroid styling */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 24px 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: scale(1.04) rotate(0deg) !important;
+            z-index: 20;
+            box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-rose-50 via-pink-50 to-rose-100 text-slate-800 min-h-screen relative overflow-x-hidden selection:bg-rose-200 selection:text-rose-900 font-sans">
+
+    <canvas id="bgCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/70 border-b border-rose-100/60 px-4 lg:px-8 py-3 transition-all duration-300">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-rose-500 text-2xl"><i class="fa-solid font-heart animate-bounce"></i></span>
+                <span class="font-cursive text-2xl font-bold bg-gradient-to-r from-rose-600 to-pink-500 bg-clip-text text-transparent">
+                    Sister & Best Friend Forever
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button id="musicBtn" onclick="toggleAudio()" class="px-3 py-1.5 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all shadow-sm">
+                    <i class="fa-solid fa-music" id="musicIcon"></i>
+                    <span id="musicText">Play Birthday Tune</span>
+                </button>
+
+                <button onclick="openPersonalizeModal()" class="px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-xs sm:text-sm font-semibold shadow-md flex items-center gap-1.5 transition-all transform active:scale-95">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span class="hidden sm:inline">Customize</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <section class="text-center pt-6 sm:pt-10 space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-200/60 border border-rose-300/50 text-rose-800 text-xs sm:text-sm font-semibold tracking-wide animate-pulse">
+                <i class="fa-solid fa-crown text-amber-500"></i>
+                <span id="heroBadge">To The Most Amazing Elder Sister In The Universe</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-serif tracking-tight text-slate-900 leading-tight">
+                Happy Birthday, <br class="sm:hidden">
+                <span class="bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 bg-clip-text text-transparent font-cursive px-2" id="sisterNameText">
+                    Dearest Sister
+                </span>
+                ✨
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-slate-600 text-base sm:text-lg md:text-xl font-light leading-relaxed" id="heroSubtitle">
+                My built-in best friend, my second mom, my secret keeper, my cheerleader, and my absolute support system. Today is all about celebrating <span class="font-semibold text-rose-600">YOU</span>!
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+                <a href="#cakeSection" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-bold text-sm sm:text-base shadow-lg shadow-rose-500/30 hover:shadow-rose-500/50 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    Blow The Candles
+                </a>
+                <a href="#letterSection" class="px-6 py-3.5 rounded-full bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-bold text-sm sm:text-base shadow-md transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    Read My Love Letter
+                </a>
+            </div>
+        </section>
+
+
+        <section id="cakeSection" class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden transition-all duration-500">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-rose-400 via-pink-500 to-amber-400"></div>
+            
+            <div class="max-w-xl mx-auto space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-800">
+                    Make A Wish & Blow out the Candles! 🎂
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500">
+                    Click the candles or use your microphone to blow them out and start the celebration fireworks!
+                </p>
+
+                <!-- Interactive SVG / HTML Cake -->
+                <div class="py-8 my-4 flex flex-col items-center justify-center relative min-h-[260px]">
+                    
+                    <!-- SVG Fireworks Canvas Overlay inside cake section -->
+                    <canvas id="cakeConfettiCanvas" class="absolute inset-0 pointer-events-none z-30"></canvas>
+
+                    <!-- Cake Structure -->
+                    <div class="relative w-64 sm:w-72 cursor-pointer group" id="cakeContainer" onclick="blowOutCandles()">
+                        
+                        <!-- Candles Container -->
+                        <div class="flex justify-around items-end px-12 absolute -top-12 left-0 right-0 z-20">
+                            <!-- Candle 1 -->
+                            <div class="relative w-3.5 h-12 bg-gradient-to-b from-yellow-200 to-pink-400 rounded-t-sm shadow-sm flex flex-col items-center">
+                                <div class="w-1 h-2 bg-slate-700 -top-2 absolute"></div>
+                                <div class="flame" id="flame1"></div>
+                                <div class="smoke" id="smoke1"></div>
+                            </div>
+                            <!-- Candle 2 (Middle Main) -->
+                            <div class="relative w-4 h-16 bg-gradient-to-b from-rose-200 to-amber-400 rounded-t-sm shadow-sm flex flex-col items-center">
+                                <div class="w-1 h-2 bg-slate-700 -top-2 absolute"></div>
+                                <div class="flame" id="flame2"></div>
+                                <div class="smoke" id="smoke2"></div>
+                            </div>
+                            <!-- Candle 3 -->
+                            <div class="relative w-3.5 h-12 bg-gradient-to-b from-yellow-200 to-pink-400 rounded-t-sm shadow-sm flex flex-col items-center">
+                                <div class="w-1 h-2 bg-slate-700 -top-2 absolute"></div>
+                                <div class="flame" id="flame3"></div>
+                                <div class="smoke" id="smoke3"></div>
+                            </div>
+                        </div>
+
+                        <!-- Top Tier -->
+                        <div class="h-16 bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300 rounded-t-2xl relative shadow-inner overflow-hidden border-b-4 border-rose-400/40">
+                            <!-- Cream drips -->
+                            <div class="absolute top-0 left-0 right-0 h-5 bg-white rounded-b-xl opacity-90"></div>
+                            <div class="absolute top-4 left-4 w-3 h-3 bg-white rounded-full"></div>
+                            <div class="absolute top-4 right-8 w-4 h-4 bg-white rounded-full"></div>
+                            <div class="flex justify-center items-center h-full pt-2 font-cursive text-rose-800 text-lg font-bold">
+                                Sister #1
+                            </div>
+                        </div>
+
+                        <!-- Bottom Tier -->
+                        <div class="h-24 bg-gradient-to-r from-rose-400 via-pink-400 to-rose-400 rounded-b-xl relative shadow-lg overflow-hidden flex items-center justify-center">
+                            <!-- Frosting decor -->
+                            <div class="absolute top-0 left-0 right-0 h-4 bg-rose-200/80 rounded-b-lg"></div>
+                            <div class="text-white font-serif text-sm tracking-widest uppercase font-bold text-shadow">
+                                Best Person Ever
+                            </div>
+                            <div class="absolute bottom-2 w-full flex justify-around px-4">
+                                <span class="text-yellow-200 text-xs">✨</span>
+                                <span class="text-white text-xs">❤️️</span>
+                                <span class="text-yellow-200 text-xs">✨</span>
+                            </div>
+                        </div>
+
+                        <!-- Cake Plate -->
+                        <div class="w-80 -ml-8 h-4 bg-slate-200 rounded-full shadow-md border-t border-white"></div>
+                    </div>
+
+                    <!-- Candle Blow Status Badge -->
+                    <div id="wishMessage" class="mt-6 hidden transition-all duration-500 animate-bounce">
+                        <span class="px-5 py-2.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-sm sm:text-base shadow-sm">
+                            🎉 Your wish has been sent to the universe! May all your dreams come true! ✨
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm">
+                    <button onclick="blowOutCandles()" class="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-medium shadow transition-all">
+                        <i class="fa-solid fa-wind mr-1"></i> Click to Blow Candles
+                    </button>
+                    <button onclick="initMicrophoneBlow()" id="micBtn" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-medium shadow-sm transition-all">
+                        <i class="fa-solid fa-microphone mr-1 text-rose-500"></i> Use Microphone to Blow
+                    </button>
+                    <button onclick="relightCandles()" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-800 font-medium transition-all">
+                        <i class="fa-solid fa-fire mr-1"></i> Relight Candles
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-rose-600 font-bold">Why You Mean Everything</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-serif text-slate-900">The 4 Pillars of My Life</h2>
+                <div class="w-16 h-1 bg-rose-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-t-4 border-rose-400 group">
+                    <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">My Support System</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" id="pillar1Text">
+                        Whenever the world feels overwhelming, you are my safe harbor. You lift me up before I even realize I’m falling.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-t-4 border-pink-400 group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">My Best Friend</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" id="pillar2Text">
+                        From uncontrollable laughing fits to midnight gossip and inside jokes, no one gets me or understands me like you do.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-t-4 border-amber-400 group">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">My Guiding Light</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" id="pillar3Text">
+                        You give the absolute best advice. Watching you navigate life with grace and strength inspires me every single day.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-t-4 border-rose-500 group">
+                    <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4
